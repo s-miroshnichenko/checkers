@@ -12,6 +12,6 @@ class Piece {
 
   bool get isKing => type == PieceType.king;
 
-  // Чтобы ИИ не изменил фигуру на экране, когда обдумывал ход
+  // To prevent the AI from updating the UI while calculating a move.
   Piece copy() => Piece(color: color, type: type);
 }

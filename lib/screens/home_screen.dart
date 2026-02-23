@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../models/game_mode.dart';
 import '../main.dart';
 
+/// The initial screen of the app where the user selects the game mode.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -13,9 +15,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Заголовок
             const Text(
-              'Шашки',
+              'CHECKERS',
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
@@ -25,28 +26,24 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Выберите режим игры',
+              'Select Game Mode',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.brown[200],
               ),
             ),
             const SizedBox(height: 60),
-
-            // Кнопка "Против человека"
             _buildModeButton(
               context,
               icon: Icons.people,
-              label: 'Против человека',
+              label: 'Vs Human',
               gameMode: GameMode.humanVsHuman,
             ),
             const SizedBox(height: 20),
-
-            // Кнопка "Против компьютера"
             _buildModeButton(
               context,
               icon: Icons.computer,
-              label: 'Против компьютера',
+              label: 'Vs Computer',
               gameMode: GameMode.humanVsComputer,
             ),
           ],
@@ -55,6 +52,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  /// Helper method to build consistent game mode selection buttons.
   Widget _buildModeButton(
     BuildContext context, {
     required IconData icon,

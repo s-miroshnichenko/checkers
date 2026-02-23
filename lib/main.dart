@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'logic/game_controller.dart';
 import 'widgets/checker_board.dart';
 import 'screens/home_screen.dart';
@@ -8,7 +9,7 @@ void main() {
   runApp(const CheckersApp());
 }
 
-/// Конфигурация приложения
+/// The root widget of the Checkers application.
 class CheckersApp extends StatelessWidget {
   const CheckersApp({super.key});
 
@@ -26,7 +27,7 @@ class CheckersApp extends StatelessWidget {
   }
 }
 
-/// Экран игры
+/// The main game screen that hosts the checkerboard and handles game initialization.
 class CheckersHomePage extends StatefulWidget {
   final GameMode gameMode;
 
@@ -46,35 +47,41 @@ class _CheckersHomePageState extends State<CheckersHomePage> {
   }
 
   @override
+  void dispose() {
+    // Best practice: dispose the controller when the widget is removed from the tree
+    // to prevent memory leaks, since it acts as a ChangeNotifier.
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.gameMode == GameMode.humanVsHuman
-              ? 'Шашки — против человека'
-              : 'Шашки — против компьютера',
+              ? 'Checkers - Vs Human'
+              : 'Checkers - Vs Computer',
         ),
         backgroundColor: Colors.brown,
         foregroundColor: Colors.white,
         actions: [
-          // Кнопка перезапуска игры
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
               _controller.reset();
             },
-            tooltip: 'Новая игра',
+            tooltip: 'New Game',
           ),
         ],
       ),
-      backgroundColor: Colors.grey[300], // Серый фон вокруг доски
-      
+      backgroundColor: Colors.grey[300],
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0), // Отступ от краев экрана
+          padding: const EdgeInsets.all(16.0),
           child: ConstrainedBox(
-            // Ограничиваем максимальную ширину для планшетов/веб-версии,
-            // чтобы доска не была гигантской.
+            // Constrain the board's maximum width for tablets and web 
+            // to maintain a playable aspect ratio.
             constraints: const BoxConstraints(maxWidth: 600),
             child: CheckerBoard(controller: _controller),
           ),

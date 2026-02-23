@@ -1,49 +1,44 @@
 import 'package:flutter/material.dart';
+
 import '../models/board_state.dart';
 import '../models/piece.dart';
 import '../models/game_mode.dart';
 import '../ai/checkers_ai.dart';
 import 'move_generator.dart';
 
-/// Тонкая обёртка над BoardState для Flutter UI.
-/// Единственный класс, который знает о Flutter (ChangeNotifier).
+/// A lightweight wrapper around [BoardState] for the Flutter UI.
+/// Acts as the presentation layer (ViewModel) implementing [ChangeNotifier]
+/// to keep the core game logic completely independent of the UI framework.
 class GameController extends ChangeNotifier {
   BoardState state;
   final GameMode gameMode;
 
-  // UI-состояние
+  // UI State
   (int, int)? selectedPosition;
   List<Move> validMoves = [];
   Set<(int, int)> selectablePieces = {};
 
-  // gameMode в списке параметров, потому что его можно получить извне.
-  // state - в списке инициализации, потому что класс задает его сам. 
   GameController({this.gameMode = GameMode.humanVsHuman})
       : state = BoardState.initial() {
-    // state нельзя объявить в теле конструктора, потому что BoardState state
-    // не nullable, а значит должен быть инициализирован до того как
-    // тело конструктора начнет выполняться. 
     _refreshSelectable();
   }
 
-  // ─── Публичные методы ─────────────────────────────────────────
+  // --- Public Methods ---
 
-  /// Обрабатывает тап по клетке (r, c).
+  /// Handles a user tap on the board at row [r], column [c].
   void handleTap(int r, int c) {
-    // Если нажали на допустимый ход — выполняем его
     final move = _findMove(r, c);
     if (move != null) {
       _executeMove(move);
       return;
     }
 
-    // Иначе пробуем выбрать шашку
     if (selectablePieces.contains((r, c))) {
       _selectPiece(r, c);
     }
   }
 
-  /// Сброс: новая игра.
+  /// Resets the game to its initial state.
   void reset() {
     state = BoardState.initial();
     selectedPosition = null;
@@ -52,18 +47,18 @@ class GameController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Ход компьютера (вызывается автоматически при смене хода).
+  /// Initiates the AI move calculation.
   void makeComputerMove() {
     if (state.isGameOver) return;
 
     final ai = CheckersAI();
     final bestMove = ai.findBestMove(state);
-    if (bestMove == null) return;
 
+    if (bestMove == null) return;
     _executeMove(bestMove);
   }
 
-  // ─── Приватные методы ─────────────────────────────────────────
+  // --- Private Helpers ---
 
   void _selectPiece(int r, int c) {
     selectedPosition = (r, c);
@@ -85,7 +80,8 @@ class GameController extends ChangeNotifier {
     _refreshSelectable();
     notifyListeners();
 
-    // Если ход компьютера — с задержкой
+    // Trigger AI turn with a slight delay for a better UX,
+    // so the human player can see the board update first.
     if (gameMode == GameMode.humanVsComputer &&
         state.turn == PieceColor.black &&
         !state.isGameOver) {
@@ -96,7 +92,6 @@ class GameController extends ChangeNotifier {
   }
 
   void _refreshSelectable() {
-    selectablePieces =
-        MoveGenerator.getSelectablePieces(state, state.turn);
+    selectablePieces = MoveGenerator.getSelectablePieces(state, state.turn);
   }
 }
