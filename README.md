@@ -1,7 +1,7 @@
-<h1 align="center">Flutter Checkers with AI 🎯</h1>
+<h1 align="center">Шашки на Flutter с ИИ</h1>
 
 <p align="center">
-  <em>A fully functional, cross-platform Checkers game built with Flutter.</em>
+  <em>Полнофункциональная кроссплатформенная игра в шашки, созданная на Flutter.</em>
 </p>
 
 <p align="center">
@@ -10,11 +10,15 @@
   <img src="https://img.shields.io/badge/Architecture-Clean-success?style=for-the-badge" alt="Clean Architecture" />
 </p>
 
-> **Note:** This project was developed using an **AI-first approach** to test the limits of LLMs in building complex algorithmic games. The core architecture, Minimax AI, and game state were scaffolded via AI, and then meticulously refined, debugged, and integrated by me to ensure 100% bug-free operation. The primary focus is on clean architecture, state management, and AI orchestration rather than complex UI/UX design.
+<p align="center">
+	<strong><a href="README_en.md">Read this in English 🇬🇧</a></strong>
+</p>
+
+> **Примечание:** Этот проект был разработан с использованием **подхода AI-first**, чтобы проверить пределы возможностей LLM при создании сложных алгоритмических игр. Базовая архитектура, ИИ на основе минимакса и состояние игры были сгенерированы ИИ, а затем тщательно доработаны, отлажены и интегрированы мной для обеспечения 100% безотказной работы. Основное внимание уделяется чистой архитектуре, управлению состоянием и оркестрации ИИ, а не сложному UI/UX дизайну.
 
 ---
 
-## 📸 Screenshots
+## 📸 Скриншоты
 
 <p align="center">
   <img src="screenshots/home_screen.png" alt="Checkers Game Image 1" width="45%" />
@@ -24,87 +28,87 @@
 
 ---
 
-## ✨ Features
+## ✨ Возможности
 
-- 🎮 **Two Game Modes:** Play against another human locally or challenge the built-in AI.
-- 🧠 **Custom AI Engine:** Features a custom-built AI opponent evaluating board states and utilizing recursive move generation using the Minimax algorithm.
-- 📜 **Strict Rules Engine:** Implements official Russian Checkers rules, including:
-  - Mandatory captures (multi-jumps).
-  - "Flying Kings" (dames that can move across multiple empty squares).
-- 🏗️ **Clean Architecture:** Strict separation between the Flutter UI (Presentation layer) and the core game logic (Domain layer). The AI and rules engine are written in pure Dart and have zero dependencies on the Flutter framework.
-- 📱 **Responsive Board:** The game board automatically scales and constrains its size, making it fully playable on mobile, tablets, and web.
-
----
-
-## 🏗️ Technical Highlights
-
-This project highlights several key competencies for scalable Flutter development:
-
-### 1. State Management (ViewModel Pattern)
-The UI is decoupled from the game logic using a lightweight `GameController` that extends `ChangeNotifier`. The UI efficiently rebuilds only when necessary using `ListenableBuilder`, ensuring smooth performance without unnecessary widget tree rebuilds.
-
-### 2. Pure Dart Domain Logic
-The `BoardState`, `MoveGenerator`, and AI components are completely isolated from Flutter.
-> **Why this matters:** This allows the AI to evaluate thousands of potential board states in milliseconds without any UI overhead. It also makes the core logic 100% unit-testable.
-
-### 3. Complex Algorithmic Implementation (DFS & Backtracking)
-The `MoveGenerator` handles complex scenarios like multi-jump capture sequences. It uses **Depth-First Search (DFS)** with **Backtracking** to simulate piece movement, check for promotions mid-jump, and revert the board state to evaluate alternative paths.
-
-### 4. Memory Optimization
-The AI evaluates future moves by creating deep copies (`clone()`) of the `BoardState`. This prevents state mutation issues during evaluation and ensures the visible UI does not "flicker" while the computer is "thinking".
+- 🎮 **Два режима игры:** Играйте против другого человека локально или бросьте вызов встроенному ИИ.
+- 🧠 **Собственный движок ИИ:** Оснащен специально разработанным ИИ-оппонентом, который оценивает состояния доски и использует рекурсивную генерацию ходов с помощью алгоритма Minimax.
+- 📜 **Движок строгих правил:** Реализует официальные правила русских шашек, включая:
+  - Обязательные взятия (серии прыжков).
+  - Дамки, которые могут перемещаться через несколько пустых клеток.
+- 🏗️ **Чистая архитектура:** Строгое разделение между UI на Flutter (Presentation layer) и основной логикой игры (Domain layer). ИИ и движок правил написаны на чистом Dart и не имеют зависимостей от фреймворка Flutter.
+- 📱 **Адаптивная доска:** Игровая доска автоматически масштабируется и ограничивает свой размер, что делает игру полноценно играбельной на смартфонах, планшетах и в вебе.
 
 ---
 
-## 🗂️ Project Structure
+## 🏗️ Технические особенности
 
-The codebase is organized for readability and maintainability:
+В этом проекте выделено несколько ключевых компетенций для разработки масштабируемых приложений на Flutter:
+
+### 1. Управление состоянием (паттерн ViewModel)
+UI отделен от логики игры с использованием легковесного `GameController`, который расширяет `ChangeNotifier`. UI эффективно перерисовывается только при необходимости с помощью `ListenableBuilder`, обеспечивая плавную работу без лишних перестроений дерева виджетов.
+
+### 2. Логика на чистом Dart
+Компоненты `BoardState`, `MoveGenerator` и ИИ полностью изолированы от Flutter.
+> **Почему это важно:** Это позволяет ИИ оценивать тысячи потенциальных состояний доски за миллисекунды без накладных расходов на UI. Это также делает основную логику на 100% пригодной для Unit-тестирования.
+
+### 3. Сложная алгоритмическая реализация (DFS и Backtracking)
+`MoveGenerator` обрабатывает сложные сценарии, такие как серии множественных взятий. Он использует **поиск в глубину (DFS)** с **возвратом (Backtracking)** для симуляции движения фигур, проверки достижения дамок во время хода и возврата состояния доски для оценки альтернативных путей.
+
+### 4. Оптимизация памяти
+ИИ оценивает будущие ходы, создавая глубокие копии (`clone()`) `BoardState`. Это предотвращает проблемы с мутацией состояния во время оценки и гарантирует, что видимый UI не «мерцает», пока компьютер «думает».
+
+---
+
+## 🗂️ Структура проекта
+
+Кодовая база организована для читаемости и удобства поддержки:
 
 ```text
 lib/
 ├── ai/
-│   └── checkers_ai.dart        # AI logic and evaluation function
+│   └── checkers_ai.dart        # Логика мощного ИИ и функция оценки
 ├── logic/
-│   ├── game_controller.dart    # ViewModel managing UI state and interactions
-│   └── move_generator.dart     # Pure Dart rules engine (valid moves, captures)
+│   ├── game_controller.dart    # ViewModel, управляющая состоянием UI и взаимодействиями
+│   └── move_generator.dart     # Движок правил на чистом Dart (допустимые ходы, взятия)
 ├── models/
-│   ├── board_state.dart        # Data model representing the board at any given time
-│   ├── game_mode.dart          # Enums for game modes
-│   └── piece.dart              # Data model for individual checkers (men/kings)
+│   ├── board_state.dart        # Модель данных, представляющая доску в данный момент времени
+│   ├── game_mode.dart          # Перечисления перечисления режимов игры
+│   └── piece.dart              # Модель данных для отдельных шашек (обычные/дамки)
 ├── screens/
-│   └── home_screen.dart        # Game mode selection screen
+│   └── home_screen.dart        # Экран выбора режима игры
 ├── widgets/
-│   └── checker_board.dart      # The visual representation of the grid
-└── main.dart                   # Application entry point
+│   └── checker_board.dart      # Визуальное представление сетки
+└── main.dart                   # Точка входа в приложение
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Начало работы
 
-To run this project locally:
+Чтобы запустить этот проект локально:
 
-1. **Ensure you have Flutter installed.**
-2. **Clone this repository:**
+1. **Убедитесь, что у вас установлен Flutter.**
+2. **Клонируйте этот репозиторий:**
    ```bash
    git clone https://github.com/s-miroshnichenko/checkers
    ```
-3. **Navigate to the project directory:**
+3. **Перейдите в директорию проекта:**
    ```bash
    cd flutter-checkers
    ```
-4. **Get dependencies:**
+4. **Установите зависимости:**
    ```bash
    flutter pub get
    ```
-5. **Run the app:**
+5. **Запустите приложение:**
    ```bash
    flutter run
    ```
 
 ---
 
-## 👨‍💻 About the Developer
+## 👨‍💻 О разработчике
 
-I am a **Flutter Developer** specializing in building robust, architecturally sound applications. I focus on writing clean, maintainable code and solving complex logical problems.
+Я **Flutter Developer**, специализирующийся на создании надежных и архитектурно правильных приложений. Я уделяю особое внимание написанию чистого, поддерживаемого кода и решению сложных логических задач.
 
-If you are looking for a developer to build scalable mobile or web applications, feel free to contact me!
+Если вы ищете разработчика для создания масштабируемых мобильных или веб-приложений, не стесняйтесь обращаться ко мне!
