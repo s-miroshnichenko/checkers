@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Architecture-Clean-success?style=for-the-badge" alt="Clean Architecture" />
 </p>
 
-> **Note:** The primary focus of this project is on clean architecture, state management, and algorithmic complexity (AI) rather than complex UI/UX design. It serves as a technical showcase of robust Flutter development.
+> **Note:** This project was developed using an **AI-first approach** to test the limits of LLMs in building complex algorithmic games. The core architecture, Minimax AI, and game state were scaffolded via AI, and then meticulously refined, debugged, and integrated by me to ensure 100% bug-free operation. The primary focus is on clean architecture, state management, and AI orchestration rather than complex UI/UX design.
 
 ---
 
