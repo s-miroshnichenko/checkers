@@ -17,9 +17,9 @@
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="screenshots/Снимок%20экрана%202026-02-23%20в%2007.30.22.png" alt="Checkers Game Image 1" width="45%" />
+  <img src="screenshots/home_screen.png" alt="Checkers Game Image 1" width="45%" />
   &nbsp;&nbsp;
-  <img src="screenshots/Снимок%20экрана%202026-02-23%20в%2007.30.28.png" alt="Checkers Game Image 2" width="45%" />
+  <img src="screenshots/game_screen.png" alt="Checkers Game Image 2" width="45%" />
 </p>
 
 ---
